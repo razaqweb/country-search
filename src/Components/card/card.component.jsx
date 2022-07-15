@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+
 
 const Card = ({ countries, searchField }) => {
   return countries
@@ -17,28 +17,26 @@ const Card = ({ countries, searchField }) => {
       return name.toLowerCase().includes(searchField) || capital || languages;
     })
     .map((country) => (
-      <Fragment key={country.name.common}>
-        <div className="card-content-container">
-          <div className="img-container">
-            <img
-              alt={`${country.name.common}'s flag`}
-              src={country.flags.png}
-              className="flag-img"
-            />
-          </div>
-          <div className="text-container">
-            <h3>{country.name.common}</h3>
-            <h3>Capital City: {country.capital}</h3>
-            <h3>Population: {country.population}</h3>
-            <h3>
-              Languages:{" "}
-              {country.languages
-                ? Object.values(country.languages).join(", ")
-                : null}
-            </h3>
-          </div>
+      <div className="card-content-container">
+        <div className="img-container">
+          <img
+            alt={`${country.name.common}'s flag`}
+            src={country.flags.png}
+            className="flag-img"
+          />
         </div>
-      </Fragment>
+        <div className="text-container">
+          <h3>{country.name.common}</h3>
+          <h3>Capital City: {country.capital}</h3>
+          <h3>Population: {country.population}</h3>
+          <h3>
+            Languages:{" "}
+            {country.languages
+              ? Object.values(country.languages).join(", ")
+              : null}
+          </h3>
+        </div>
+      </div>
     ));
 };
 

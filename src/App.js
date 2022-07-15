@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import SearchBox from "./Components/search-box/search-box.component";
 import CountriesDirectory from "./Components/countries-directory/countries-directory.component";
-
 import "./App.css";
 
 const App = () => {
