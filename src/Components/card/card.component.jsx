@@ -1,5 +1,3 @@
-
-
 const Card = ({ countries, searchField }) => {
   return countries
     .filter((country) => {
@@ -17,7 +15,7 @@ const Card = ({ countries, searchField }) => {
       return name.toLowerCase().includes(searchField) || capital || languages;
     })
     .map((country) => (
-      <div className="card-content-container">
+      <div className="card-content-container" key={country.name.common}>
         <div className="img-container">
           <img
             alt={`${country.name.common}'s flag`}
