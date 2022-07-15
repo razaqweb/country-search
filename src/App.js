@@ -1,61 +1,48 @@
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect } from "react";
+import SearchBox from "./Components/search-box/search-box.component";
+import CountriesDirectory from "./Components/countries-directory/countries-directory.component";
+
 import "./App.css";
 
 const App = () => {
   const [countries, setCountries] = useState([]);
   const [searchField, setSearchField] = useState("");
-
+  const [cloneCountries, setCloneCountries] = useState(countries);
   // Fetch countries
-  useEffect(() => {
-    fetch("https://restcountries.com/v3.1/all")
-      .then((response) => response.json())
-      .then((data) => setCountries(data));
-  }, []);
+  useEffect(
+    () => async () => {
+      const response = await fetch("https://restcountries.com/v3.1/all");
+      const data = await response.json();
+      setCountries(data);
+    },
+    []
+  );
 
-  console.log(countries);
+  useEffect(() => {
+    setCloneCountries(countries);
+  }, [countries, searchField]);
+
+  const searchHandler = (event) => {
+    setSearchField(event.target.value.toLowerCase());
+  };
 
   return (
     <div className="App">
-      <div className="inputField">
-        <input
+      <div className="heading-container">
+        <h1>Country Search</h1>
+        <p>A directory of every country in the world.</p>
+      </div>
+      <div className="search-box-container">
+        <SearchBox
           type="search"
-          placeholder="Search Country..."
-          onChange={(event) => {
-            setSearchField(event.target.value.toLowerCase());
-            console.log(searchField);
-          }}
+          placeholder="Search by Country, Language, or Capital City..."
+          onChange={searchHandler}
         />
       </div>
-      <div className="cards">
-        {countries
-          .filter((country) =>
-            country.name.common.toLowerCase().includes(searchField)
-          )
-          .map((country) => (
-            <Fragment key={country.name.common}>
-              <div className="card-content-container">
-                <div className="img-container">
-                  <img
-                    alt={`${country.name.common}'s flag`}
-                    src={country.flags.png}
-                    className="flag-img"
-                  />
-                </div>
-                <div className="text-container">
-                  <h3>{country.name.common}</h3>
-                  <h3>Capital City: {country.capital}</h3>
-                  <h3>Population: {country.population}</h3>
-                  <h3>
-                    Languages:{" "}
-                    {country.languages
-                      ? Object.values(country.languages).join(", ")
-                      : null}
-                  </h3>
-                </div>
-              </div>
-            </Fragment>
-          ))}
-      </div>
+      <CountriesDirectory
+        countries={cloneCountries}
+        searchField={searchField}
+      />
     </div>
   );
 };
