@@ -8,6 +8,7 @@ const App = () => {
   const [countries, setCountries] = useState([]);
   const [searchField, setSearchField] = useState("");
   const [cloneCountries, setCloneCountries] = useState(countries);
+
   // Fetch countries
   useEffect(
     () => async () => {
