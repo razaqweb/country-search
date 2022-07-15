@@ -31,6 +31,10 @@ const App = () => {
       <div className="heading-container">
         <h1>Country Search</h1>
         <p>A directory of every country in the world.</p>
+        <p>
+          The search-box below will filter the countries by name, languages, and
+          capital city.
+        </p>
       </div>
       <div className="search-box-container">
         <SearchBox
