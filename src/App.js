@@ -9,14 +9,11 @@ const App = () => {
   const [cloneCountries, setCloneCountries] = useState(countries);
 
   // Fetch countries
-  useEffect(
-    () => async () => {
-      const response = await fetch("https://restcountries.com/v3.1/all");
-      const data = await response.json();
-      setCountries(data);
-    },
-    []
-  );
+  useEffect(() => {
+    fetch("https://restcountries.com/v3.1/all")
+      .then((response) => response.json())
+      .then((data) => setCountries(data));
+  }, []);
 
   useEffect(() => {
     setCloneCountries(countries);
@@ -32,8 +29,8 @@ const App = () => {
         <h1>Country Search</h1>
         <p>A directory of every country in the world.</p>
         <p>
-          The search-box below will filter the countries by name, languages, and
-          capital city.
+          Use the search box below to find countries by name, the languages
+          spoken, or capital city.
         </p>
       </div>
       <div className="search-box-container">
